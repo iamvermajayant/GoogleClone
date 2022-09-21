@@ -1,8 +1,10 @@
 import React from 'react'
-
+import {Links} from "./Links";
 const Search = () => {
   return (
-    <div>Search</div>
+    <div>Search
+    <Links/>
+    </div>
   )
 }
 

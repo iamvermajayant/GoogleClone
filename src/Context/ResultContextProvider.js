@@ -9,7 +9,7 @@ const baseURL = 'https://google-search3.p.rapidapi.com/api/v1';
 export const ResultContextProvider = ({children}) => {
     const [result, setResult] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('indeed');
+    const [searchTerm, setSearchTerm] = useState('LPU');
 
     const getResult = async (type) => {
         setIsLoading(true);
@@ -25,8 +25,18 @@ export const ResultContextProvider = ({children}) => {
         })
 
         const data = await response.json();
-        console.log(data);
-        setResult(data);
+        if(type.includes('/news')){
+            setResult(data.entries);
+            console.log(data.entries);
+        }
+        else if(type.includes('/image')){
+            setResult(data.image_results);
+            console.log(data.image_results);
+        }
+        else {
+            setResult(data.results);
+            console.log(data.results);
+        }
         setIsLoading(false);
     }
     return (
