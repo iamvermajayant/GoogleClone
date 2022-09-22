@@ -23,7 +23,7 @@ export const Results = () => {
     switch (location.pathname) {
         case '/search':
             return (
-                <div className="flex flex-wrap justify-between space-y-6 sm:px-56">
+                <div className="flex flex-wrap justify-between space-y-6 sm:px-36 px-9 pt-9">
                     {result?.map(({link,title,description}, index)=>(
                         <div key={index} className="md:w-full w-full">
                             <a href={link} target="_blank" rel="noreferrer">
@@ -33,7 +33,7 @@ export const Results = () => {
                                 <p className="text-lg hover:underline dark:text-blue-300 text-blue-700">
                                     {title}
                                 </p>
-                                <p className="text-xs dark:text-gray-400 text-gray-900 w-3/5">
+                                <p className="text-sm dark:text-gray-400 text-gray-900 w-3/5">
                                     {description && description}
                                 </p>
                             </a>
@@ -43,7 +43,7 @@ export const Results = () => {
             );
         case '/image':
             return (
-                <div className="flex flex-wrap justify-center items-center">
+                <div className="flex flex-wrap justify-center items-center pt-5">
                     {result?.map(({image, link: {href, title}}, index)=>(
                         <a className="p-5" href={href} key={index} target="_blank" rel="noreferrer">
                             <img src={image?.src} alt={title} loading='lazy' width="250px" height="150px"/>
@@ -54,7 +54,7 @@ export const Results = () => {
             );
         case '/news':
             return (
-                <div className="flex flex-wrap justify-between space-y-6 sm:px-56 items-center ">
+                <div className="flex flex-wrap justify-between space-y-6 sm:px-36 items-center pt-9">
                     {result?.map(({links ,id,source,title,published }, index)=>(
                         <div key={id} className="md:w-full w-full sm:w-full">
                             <a href={links?.[0].href} target="_blank" rel="noreferrer" className="hover:underline">
