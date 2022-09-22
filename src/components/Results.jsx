@@ -5,6 +5,7 @@ import {Loading} from './Loading';
 import  {useResultContext}  from '../Context/ResultContextProvider';
 
 export const Results = () => {
+    //eslint-disable-next-line
   const {getResult, result, isLoading, searchTerm, setSearchTerm} = useResultContext();
   const location = useLocation();
   console.log(location.pathname);    

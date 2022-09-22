@@ -19,13 +19,15 @@ const Home = ({ darkTheme, setDarkTheme }) => {
   useEffect(() => {
     // const items
     setSearchTerm(JSON.parse(window.localStorage.getItem("searchItem")));
+    //eslint-disable-next-line
   }, []);
-  
+
   useEffect(() => {
     if (debouncedValue) {
       setSearchTerm(debouncedValue);
       Navigate("/search");
     }
+    //eslint-disable-next-line
   }, [debouncedValue, setSearchTerm]);
 
   return (
