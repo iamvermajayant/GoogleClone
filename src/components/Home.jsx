@@ -12,15 +12,16 @@ const Home = ({ darkTheme, setDarkTheme }) => {
 
   const [debouncedValue] = useDebounce(searchText, 1000);
   const Navigate = useNavigate();
-  useEffect(() => {
-    localStorage.setItem("searchItem", JSON.stringify(searchText));
-  }, [searchText]);
 
-  useEffect(() => {
-    // const items
-    setSearchTerm(JSON.parse(window.localStorage.getItem("searchItem")));
-    //eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   localStorage.setItem("searchItem", JSON.stringify(searchText));
+  // }, []);
+
+  // useEffect(() => {
+  //   // const items
+  //   setSearchTerm(JSON.parse(window.localStorage.getItem("searchItem")));
+  //   //eslint-disable-next-line
+  // }, []);
 
   useEffect(() => {
     if (debouncedValue) {

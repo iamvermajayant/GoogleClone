@@ -8,9 +8,9 @@ import { BrowserRouter as Routes } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ResultContextProvider>
-    <Routes>
+  <Routes>
+    <ResultContextProvider>
       <App />
-    </Routes>
-  </ResultContextProvider>
+    </ResultContextProvider>
+  </Routes>
 );

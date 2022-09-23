@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState, useContext, createContext, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 
 const ResultContext = createContext();
@@ -9,7 +10,7 @@ const baseURL = 'https://google-search3.p.rapidapi.com/api/v1';
 export const ResultContextProvider = ({children}) => {
     const [result, setResult] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('lpu');
+    const [searchTerm, setSearchTerm] = useState('');
     
     useEffect(() =>{
         localStorage.setItem('searchItem', JSON.stringify(searchTerm));
@@ -20,6 +21,11 @@ export const ResultContextProvider = ({children}) => {
         setSearchTerm(JSON.parse(window.localStorage.getItem('searchItem')));
     },[])
 
+    const Navigate = useNavigate();
+
+    if(searchTerm === ''){
+        Navigate('/Home');
+    }
 
     const getResult = async (type) => {
         setIsLoading(true);
