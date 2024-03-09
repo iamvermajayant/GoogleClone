@@ -7,11 +7,11 @@ import { Results } from './Results';
 export const Routing = ({darkTheme, setDarkTheme}) => {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to='/Home'/>}/>
+      <Route path="/" element={<Navigate to='/home'/>}/>
       {["/search", "/image", "/news", "/videos"].map(path =>(
-        <Route path={path} element={<Results/>}/>
+        <Route path={path} key={path} element={<Results/>}/>
       ))}
-      <Route path="/Home" element={<Home darkTheme={darkTheme} setDarkTheme={setDarkTheme} />}/>
+      <Route path="/home" element={<Home darkTheme={darkTheme} setDarkTheme={setDarkTheme} />}/>
     </Routes>
   )
 }

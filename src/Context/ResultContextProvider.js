@@ -2,10 +2,7 @@ import React from 'react';
 import {useState, useContext, createContext, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-
 const ResultContext = createContext();
-
-const baseURL = 'https://google-search3.p.rapidapi.com/api/v1';
 
 export const ResultContextProvider = ({children}) => {
     const [result, setResult] = useState([]);
@@ -23,41 +20,25 @@ export const ResultContextProvider = ({children}) => {
 
     const Navigate = useNavigate();
 
-    if(searchTerm === ''){
-        Navigate('/Home');
-    }
-
-    const getResult = async (type) => {
-        setIsLoading(true);
-
-        const response = await fetch(`${baseURL}${type}`,{
-            method: 'GET',
-            
-            headers: {
-                'X-User-Agent': 'desktop',
-                'X-Proxy-Location': 'IN',
-                'X-RapidAPI-Key': process.env.REACT_APP_KEY,
-                'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
-              }
-        })
-
-        const data = await response.json();
-        if(type.includes('/news')){
-            setResult(data.entries);
-            console.log(data.entries);
+    useEffect(()=>{
+        if(searchTerm === ''){
+            Navigate('/home');
         }
-        else if(type.includes('/image')){
-            setResult(data.image_results);
-            console.log(data.image_results);
-        }
-        else {
-            setResult(data.results);
-            console.log(data.results);
-        }
-        setIsLoading(false);
-    }
+        // eslint-disable-next-line
+    }, [])
+
+
+
+
+    const updateSearchResults = (results) => {
+        setResult(results);
+    };
+
+    console.log(searchTerm);
+    
+    
     return (
-        <ResultContext.Provider value={{searchTerm , getResult, isLoading, result, setSearchTerm}}>
+        <ResultContext.Provider value={{searchTerm , updateSearchResults, setIsLoading, isLoading, result, setSearchTerm}}>
             {children}
         </ResultContext.Provider>
     );

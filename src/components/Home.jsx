@@ -3,33 +3,52 @@ import profilePicture from "../images/profile.jpeg";
 import GoogleLogo from "../images/google.png";
 import { Link } from "react-router-dom";
 import { useDebounce } from "use-debounce";
-import { useResultContext } from "../Context/ResultContextProvider";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useResultContext } from "../Context/ResultContextProvider";
 
 const Home = ({ darkTheme, setDarkTheme }) => {
   const [searchText, setSearchText] = useState("");
-  const { setSearchTerm } = useResultContext();
-
+  const {updateSearchResults, setSearchTerm, setIsLoading} = useResultContext()
   const [debouncedValue] = useDebounce(searchText, 1000);
   const Navigate = useNavigate();
 
-  // useEffect(() => {
-  //   localStorage.setItem("searchItem", JSON.stringify(searchText));
-  // }, []);
-
-  // useEffect(() => {
-  //   // const items
-  //   setSearchTerm(JSON.parse(window.localStorage.getItem("searchItem")));
-  //   //eslint-disable-next-line
-  // }, []);
-
   useEffect(() => {
-    if (debouncedValue) {
-      setSearchTerm(debouncedValue);
-      Navigate("/search");
-    }
-    //eslint-disable-next-line
-  }, [debouncedValue, setSearchTerm]);
+    const fetchData = async () => {
+      if (debouncedValue) {
+        try {
+          const options = {
+            method: 'GET',
+            url: 'https://real-time-web-search.p.rapidapi.com/search',
+            params: {
+              q: debouncedValue,
+              limit: '100'
+            },
+            headers: {
+              'X-RapidAPI-Key': '81fa470f53msh772893b2a5d3c14p1132d1jsn6ac62985573a',
+              'X-RapidAPI-Host': 'real-time-web-search.p.rapidapi.com'
+            }
+          };
+
+          Navigate("/search");
+          setIsLoading(true);
+          const response = await axios.request(options);
+          console.log("runing again again")
+          console.log(response.data.data);
+          updateSearchResults(response.data.data);
+          setSearchTerm(debouncedValue);
+          setIsLoading(false);
+
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    fetchData();
+   
+  }, [debouncedValue]);
+
 
   return (
     <div className="flex flex-wrap w-full h-full">
