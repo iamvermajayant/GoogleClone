@@ -6,16 +6,20 @@ import { useResultContext } from "../Context/ResultContextProvider";
 
 export const Results = () => {
   //eslint-disable-next-line
-  const { getResult, result, isLoading, searchTerm, setSearchTerm } =
+  const { resultweb, isLoading, imageResult, searchTerm, setSearchTerm, updateImageSearchResults } =
     useResultContext();
   const location = useLocation();
   console.log(location.pathname);
 
-  console.log(result);
+  console.log(resultweb);
 
-  if(location.pathname === '/image'){
-    console.log("running");
-  }
+
+  useEffect(()=>{
+      updateImageSearchResults(searchTerm);
+      console.log('hi');
+  },[searchTerm])
+  
+  
 
 
   if (isLoading) return <Loading />;
@@ -24,7 +28,7 @@ export const Results = () => {
     case "/search":
       return (
         <div className="flex flex-wrap justify-between space-y-6 sm:px-36 px-9 pt-9">
-          {result?.map(({ title, snippet, url, domain, position }, index) => (
+          {resultweb?.map(({ title, snippet, url, domain, position }, index) => (
             <div key={index} className="md:w-full w-full">
               <a href={url} target="_blank" rel="noreferrer">
                 <p className="text-lg hover:underline dark:text-blue-300 text-blue-700">
@@ -39,6 +43,18 @@ export const Results = () => {
           ))}
         </div>
       );
+
+      case '/image':
+            return (
+              <div className="flex flex-wrap justify-center items-center pt-5">
+              {imageResult?.map(({ title, image, url, thumbnail }, index) => (
+                  <a className="p-5" href={url} key={index} target="_blank" rel="noreferrer">
+                      <img src={thumbnail} alt={title} loading='lazy' width="275px" height="183px" style={{ height: '183px' }}/>
+                      <p className="sm:w-72 w-36 break-words text-sm mt-2">{title}</p>
+                  </a>
+              ))}
+          </div>
+            );
       
     default:
       return "ERROR!";
