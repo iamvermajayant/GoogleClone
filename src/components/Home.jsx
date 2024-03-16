@@ -8,7 +8,7 @@ import { useResultContext } from "../Context/ResultContextProvider";
 
 const Home = ({ darkTheme, setDarkTheme }) => {
   const [searchText, setSearchText] = useState("");
-  const {updateSearchResults} = useResultContext()
+  const {updateSearchResults, searchTerm} = useResultContext()
   const [debouncedValue] = useDebounce(searchText, 1000);
   const Navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const Home = ({ darkTheme, setDarkTheme }) => {
       updateSearchResults(debouncedValue);
       Navigate('/search');
     }
-  }, [debouncedValue]);
+  }, [debouncedValue,searchTerm]);
 
 
   return (

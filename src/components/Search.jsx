@@ -5,7 +5,7 @@ import { useResultContext } from "../Context/ResultContextProvider";
 
 const Search = () => {
   const [text, setText] = useState("");
-  const { setSearchTerm } = useResultContext();
+  const { setSearchTerm, updateSearchResults } = useResultContext();
 
   const [debouncedValue] = useDebounce(text, 1000);
   
@@ -21,6 +21,7 @@ const Search = () => {
   useEffect(() => {
     if (debouncedValue) {
       setSearchTerm(debouncedValue);
+      updateSearchResults(debouncedValue);
     }
     //eslint-disable-next-line
   }, [debouncedValue]);
