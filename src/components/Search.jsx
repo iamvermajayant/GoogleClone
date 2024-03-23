@@ -9,15 +9,7 @@ const Search = () => {
 
   const [debouncedValue] = useDebounce(text, 1000);
   
-  // useEffect(() => {
-  //   localStorage.setItem("searchItem", JSON.stringify(text));
-  // }, [text]);
-
-  // useEffect(() => {
-  //   // const items
-  //   setSearchTerm(JSON.parse(window.localStorage.getItem("searchItem")));
-  // }, []);
-
+  
   useEffect(() => {
     if (debouncedValue) {
       setSearchTerm(debouncedValue);

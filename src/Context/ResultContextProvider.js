@@ -2,7 +2,7 @@ import React from 'react';
 import {useState, useContext, createContext, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 // eslint-disable-next-line
-import {makeAPICall, makeWebAPICall} from './makeAPICall';
+import {makeAPICall, makeNewsAPICall, makeWebAPICall} from './makeAPICall';
 
 const ResultContext = createContext();
 
@@ -12,14 +12,7 @@ export const ResultContextProvider = ({children}) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [imageResult, setImageResult] = useState([]);
 
-    // useEffect(() =>{
-    //     localStorage.setItem('searchItem', JSON.stringify(searchTerm));
-    // },[searchTerm])
-
-    // useEffect(() =>{
-    //     // const items
-    //     setSearchTerm(JSON.parse(window.localStorage.getItem('searchItem')));
-    // },[])
+    
 
     const Navigate = useNavigate();
 
@@ -31,9 +24,16 @@ export const ResultContextProvider = ({children}) => {
         // eslint-disable-next-line
     }, [])
 
-   
-    
 
+    const updateNewsSearchResults = async (searchTerm) => {
+        try {
+            const response = await makeNewsAPICall(searchTerm);
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+   
     
     const updateImageSearchResults = async (searchTerm) => {
         try {
@@ -64,7 +64,7 @@ export const ResultContextProvider = ({children}) => {
     
     
     return (
-        <ResultContext.Provider value={{searchTerm , imageResult, updateSearchResults, updateImageSearchResults, setIsLoading, isLoading, resultweb, setSearchTerm}}>
+        <ResultContext.Provider value={{searchTerm , imageResult, updateSearchResults, updateImageSearchResults, setIsLoading, isLoading, resultweb, setSearchTerm, updateNewsSearchResults}}>
             {children}
         </ResultContext.Provider>
     );

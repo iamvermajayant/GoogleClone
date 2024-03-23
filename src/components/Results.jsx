@@ -6,13 +6,18 @@ import { useResultContext } from "../Context/ResultContextProvider";
 
 export const Results = () => {
   //eslint-disable-next-line
-  const { resultweb, isLoading, imageResult, searchTerm, setSearchTerm, updateImageSearchResults } =
+  const { resultweb, isLoading, imageResult, searchTerm, setSearchTerm, updateImageSearchResults, updateNewsSearchResults } =
     useResultContext();
   const location = useLocation();
   console.log(location.pathname);
 
   console.log(resultweb);
 
+
+  if(location.pathname === '/news'){
+    updateNewsSearchResults(searchTerm);
+    console.log('hi from news');
+  }
 
   useEffect(()=>{
       updateImageSearchResults(searchTerm);
