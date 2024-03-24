@@ -3,33 +3,22 @@ import profilePicture from "../images/profile.jpeg";
 import GoogleLogo from "../images/google.png";
 import { Link } from "react-router-dom";
 import { useDebounce } from "use-debounce";
-import { useResultContext } from "../Context/ResultContextProvider";
 import { useNavigate } from "react-router-dom";
+import { useResultContext } from "../Context/ResultContextProvider";
 
 const Home = ({ darkTheme, setDarkTheme }) => {
   const [searchText, setSearchText] = useState("");
-  const { setSearchTerm } = useResultContext();
-
+  const {updateSearchResults, searchTerm} = useResultContext()
   const [debouncedValue] = useDebounce(searchText, 1000);
   const Navigate = useNavigate();
 
-  // useEffect(() => {
-  //   localStorage.setItem("searchItem", JSON.stringify(searchText));
-  // }, []);
-
-  // useEffect(() => {
-  //   // const items
-  //   setSearchTerm(JSON.parse(window.localStorage.getItem("searchItem")));
-  //   //eslint-disable-next-line
-  // }, []);
-
   useEffect(() => {
     if (debouncedValue) {
-      setSearchTerm(debouncedValue);
-      Navigate("/search");
+      updateSearchResults(debouncedValue);
+      Navigate('/search');
     }
-    //eslint-disable-next-line
-  }, [debouncedValue, setSearchTerm]);
+  }, [debouncedValue,searchTerm]);
+
 
   return (
     <div className="flex flex-wrap w-full h-full">

@@ -5,22 +5,15 @@ import { useResultContext } from "../Context/ResultContextProvider";
 
 const Search = () => {
   const [text, setText] = useState("");
-  const { setSearchTerm } = useResultContext();
+  const { setSearchTerm, updateSearchResults } = useResultContext();
 
   const [debouncedValue] = useDebounce(text, 1000);
   
-  // useEffect(() => {
-  //   localStorage.setItem("searchItem", JSON.stringify(text));
-  // }, [text]);
-
-  // useEffect(() => {
-  //   // const items
-  //   setSearchTerm(JSON.parse(window.localStorage.getItem("searchItem")));
-  // }, []);
-
+  
   useEffect(() => {
     if (debouncedValue) {
       setSearchTerm(debouncedValue);
+      updateSearchResults(debouncedValue);
     }
     //eslint-disable-next-line
   }, [debouncedValue]);
