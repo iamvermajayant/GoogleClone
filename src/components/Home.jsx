@@ -17,6 +17,7 @@ const Home = ({ darkTheme, setDarkTheme }) => {
       updateSearchResults(debouncedValue);
       Navigate('/search');
     }
+    //eslint-disable-next-line
   }, [debouncedValue,searchTerm]);
 
 

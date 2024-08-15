@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useContext, createContext, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-// eslint-disable-next-line
+//eslint-disable-next-line
 import {makeAPICall, makeNewsAPICall, makeWebAPICall} from './makeAPICall';
 
 const ResultContext = createContext();
@@ -11,7 +11,8 @@ export const ResultContextProvider = ({children}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [imageResult, setImageResult] = useState([]);
-
+    const [newsResult, setNewsResult] = useState([]);
+ 
     
 
     const Navigate = useNavigate();
@@ -28,7 +29,8 @@ export const ResultContextProvider = ({children}) => {
     const updateNewsSearchResults = async (searchTerm) => {
         try {
             const response = await makeNewsAPICall(searchTerm);
-            console.log(response);
+            console.log(response.data);
+            setNewsResult(response.data);
         } catch (error) {
             console.error(error);
         }
@@ -64,7 +66,7 @@ export const ResultContextProvider = ({children}) => {
     
     
     return (
-        <ResultContext.Provider value={{searchTerm , imageResult, updateSearchResults, updateImageSearchResults, setIsLoading, isLoading, resultweb, setSearchTerm, updateNewsSearchResults}}>
+        <ResultContext.Provider value={{searchTerm , imageResult, newsResult, updateSearchResults, updateImageSearchResults, setIsLoading, isLoading, resultweb, setSearchTerm, updateNewsSearchResults}}>
             {children}
         </ResultContext.Provider>
     );
